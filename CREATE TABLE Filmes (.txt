@@ -1,0 +1,73 @@
+CREATE TABLE Filmes (
+  id SERIAL PRIMARY KEY,
+  caminho VARCHAR(255),
+  titulo VARCHAR(255) UNIQUE NOT NULL,
+  duracao INTEGER NOT NULL,
+  data_lancamento TIMESTAMP,
+  artistas_principais VARCHAR(255),
+  diretor VARCHAR(255),
+  poster VARCHAR(255),
+  generos VARCHAR(255),
+  FOREIGN KEY (diretor) REFERENCES Elenco (nome)
+);
+
+CREATE TABLE Elenco (
+  id SERIAL PRIMARY KEY,
+  nome VARCHAR(255) NOT NULL,
+  data_nascimento DATE,
+  data_falecimento DATE,
+  tipo ENUM ('artista','diretor')
+  biografia TEXT,
+  filme_mais_conhecido VARCHAR(255)
+);
+
+CREATE TABLE Clientes (
+  id SERIAL PRIMARY KEY,
+  email VARCHAR(255) UNIQUE NOT NULL,
+  senha VARCHAR(255) NOT NULL,
+  nome_completo VARCHAR(255) NOT NULL,
+  idade INTEGER NOT NULL,
+  generos_preferidos_musicas VARCHAR(255),
+  data_criacao DATE,
+  ultimo_acesso TIMESTAMP,
+  celular VARCHAR(255) NOT NULL,
+  plano VARCHAR(255),
+  FOREIGN KEY (plano) REFERENCES Planos(nome_plano)
+);
+
+CREATE TABLE Planos (
+  id SERIAL PRIMARY KEY,
+  nome_plano VARCHAR(255),
+  preco NUMERIC(10, 2),
+  recorrencia VARCHAR(255),
+  descricao TEXT,
+  aparelhos INTEGER
+);
+Artistas
+INSERT INTO Elenco ( nome ,data_nascimento,data_falecimento,tipo,biografia,filme_mais_conhecido) VALUES
+('Robert Downey Jr.', '1965-04-04', NULL, 'artista', 'Robert John Downey Jr. nasceu em 4 de abril de 1965 em Manhattan EUA.', 'Homem de Ferro'),
+('Chris Hemsworth', '1983-08-11', NULL, 'artista', 'Christopher Hemsworth nasceu em 11 de agosto de 1983 em Melbourne', 'Os Vingadores: Guerra Infinita');
+('Leonardo DiCaprio', '1974-11-11', NULL, 'artista', 'Leonardo Wilhelm DiCaprio é um ator, produtor e diretor de cinema norte-americano', 'O Jogador de Boliche'),
+('Emma Stone', '1988-11-06', NULL, 'artista', 'Emily Jean Stone é uma atriz, diretora e produtora americana.', 'Ate seu fim');
+Filmes
+INSERT INTO Filmes (caminho, titulo, duracao, data_lancamento, artistas_principais, diretor, poster, generos)
+VALUES
+  ('caminho_para_o_arquivo', 'Homen de ferro', 126, '2008-30-04 00:00:00', 'Robert Downey Jr,', 'Jon Favreau', 'poster do homem de ferro', 'Açao, ficçao cientifica'),
+  ('caminho_para_o_arquivo_2', 'Homem aranha', 121, '2002-03-03 00:00:00','Stan lee ', 'Sam Raimi', 'Homem aranha', 'drama, aventura, ficcçao cientifica ');
+('caminho_para_o_arquivo_3', 'Ate o ultimo homem', 139, '2017-26-01 00:00:00','andrew garfield ', 'mel gibson', 'ate o ultimo homem', 'guerra, thriller,');
+Diretor
+INSERT INTO Elenco (nome, data_nascimento, data_falecimento, tipo, biografia, filme_mais_conhecido)
+VALUES
+  ('Mel Columcille', '1956-03-01', NULL, 'diretor', 'Gibson é o sexto de sete irmãos, e o segundo filho do americano Hutton Gibson e da irlandesa Anne Reilly Gibson', 'Braveheart');
+usuarios
+INSERT INTO Clientes (email, senha, nome_completo, idade, generos_preferidos_filmes, data_criacao, ultimo_acesso, celular, plano)
+VALUES
+  ('email@exemplo.com', 'senha_segura', 'Nome Completo do Cliente', 25, 'Genero 1, Genero 2', '2022-01-01', '2022-01-01 12:00:00', '(11) 1234-5678', 'Plano Grátis'),
+  ('email_2@exemplo.com', 'senha_segura_2', 'Nome Completo do Cliente 2', 30, 'Genero 3, Genero 4', '2022-01-02', '2022-01-02 12:00:00', '(11) 8765-4321', 'Plano Premium');
+Planos
+INSERT INTO Planos (nome_plano, preco, recorrencia, descricao, aparelhos)
+VALUES
+  ('Nome do Plano 1', 9.99, 'Mensal', 'Descrição do Plano 1', 1),
+  ('Nome do Plano 2', 19.99, 'anual', 'Descrição do Plano 2', 2);
+  ('Nome do Plano 3', 59,99, 'semanal', 'Descriçâo do Plano 3',3);
+
